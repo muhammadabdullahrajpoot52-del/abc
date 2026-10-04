@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WhatsApp Game Hub - Spy vs Hunter vs Hiders</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            touch-action: manipulation;
+        }
+
+        /* 10 Theme Definitions */
+        :root[data-theme="whatsapp-dark"] {
+            --bg-main: #0b141a;
+            --bg-header: #1f2c34;
+            --bg-sidebar: #111b21;
+            --bg-chat: #0b141a;
+            --bg-msg-out: #005c4b;
+            --bg-msg-in: #202c33;
+            --bg-input: #2a3942;
+            --text-primary: #e9edef;
+            --text-secondary: #8696a0;
+            --accent: #00a884;
+            --border: #222d34;
+            --wallpaper: opacity(0.06);
+        }
+
+        :root[data-theme="whatsapp-light"] {
+            --bg-main: #f0f2f5;
+            --bg-header: #075e54;
+            --bg-sidebar: #ffffff;
+            --bg-chat: #efeae2;
+            --bg-msg-out: #d9fdd3;
+            --bg-msg-in: #ffffff;
+            --bg-input: #f0f2f5;
+            --text-primary: #111b21;
+            --text-secondary: #667781;
+            --accent: #128c7e;
+            --border: #e9edef;
+            --wallpaper: opacity(0.12);
+        }
+
+        :root[data-theme="matrix"] {
+            --bg-main: #020b05;
+            --bg-header: #05240f;
+            --bg-sidebar: #031409;
+            --bg-chat: #010804;
+            --bg-msg-out: #054a1f;
+            --bg-msg-in: #0a2612;
+            --bg-input: #083318;
+            --text-primary: #00ff66;
+            --text-secondary: #00aa44;
+            --accent: #00ff66;
+            --border: #06401b;
+            --wallpaper: opacity(0.15) hue-rotate(90deg);
+        }
+
+        :root[data-theme="cyberpunk"] {
+            --bg-main: #0d0221;
+            --bg-header: #260859;
+            --bg-sidebar: #150538;
+            --bg-chat: #090119;
+            --bg-msg-out: #7b2cbf;
+            --bg-msg-in: #240046;
+            --bg-input: #3c096c;
+            --text-primary: #00f5d4;
+            --text-secondary: #ff007f;
+            --accent: #ff007f;
+            --border: #5a189a;
+            --wallpaper: opacity(0.2) hue-rotate(240deg);
+        }
+
+        :root[data-theme="sunset-rose"] {
+            --bg-main: #2d0b1e;
+            --bg-header: #501132;
+            --bg-sidebar: #380d25;
+            --bg-chat: #1f0614;
+            --bg-msg-out: #9d174d;
+            --bg-msg-in: #4c0519;
+            --bg-input: #701a45;
+            --text-primary: #fbcfe8;
+            --text-secondary: #f472b6;
+            --accent: #f43f5e;
+            --border: #831843;
+            --wallpaper: opacity(0.15) hue-rotate(300deg);
+        }
+
+        :root[data-theme="ocean-blue"] {
+            --bg-main: #030712;
+            --bg-header: #0f172a;
+            --bg-sidebar: #0b1120;
+            --bg-chat: #020617;
+            --bg-msg-out: #1e40af;
+            --bg-msg-in: #1e293b;
+            --bg-input: #334155;
+            --text-primary: #e0f2fe;
+            --text-secondary: #38bdf8;
+            --accent: #0284c7;
+            --border: #1e293b;
+            --wallpaper: opacity(0.12) hue-rotate(180deg);
+        }
+
+        :root[data-theme="oled-black"] {
+            --bg-main: #000000;
+            --bg-header: #121212;
+            --bg-sidebar: #0a0a0a;
+            --bg-chat: #000000;
+            --bg-msg-out: #27272a;
+            --bg-msg-in: #18181b;
+            --bg-input: #27272a;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --accent: #ffffff;
+            --border: #27272a;
+            --wallpaper: opacity(0.02);
+        }
+
+        :root[data-theme="emerald-forest"] {
+            --bg-main: #022c22;
+            --bg-header: #064e3b;
+            --bg-sidebar: #04382c;
+            --bg-chat: #01221a;
+            --bg-msg-out: #047857;
+            --bg-msg-in: #065f46;
+            --bg-input: #0f766e;
+            --text-primary: #ecfdf5;
+            --text-secondary: #34d399;
+            --accent: #10b981;
+            --border: #047857;
+            --wallpaper: opacity(0.12) hue-rotate(120deg);
+        }
+
+        :root[data-theme="gold-obsidian"] {
+            --bg-main: #0f0f0f;
+            --bg-header: #26200a;
+            --bg-sidebar: #171407;
+            --bg-chat: #080702;
+            --bg-msg-out: #854d0e;
+            --bg-msg-in: #3a2e0a;
+            --bg-input: #54430e;
+            --text-primary: #fef08a;
+            --text-secondary: #eab308;
+            --accent: #facc15;
+            --border: #713f12;
+            --wallpaper: opacity(0.1) sepia(1);
+        }
+
+        :root[data-theme="crimson-rogue"] {
+            --bg-main: #1c0505;
+            --bg-header: #450a0a;
+            --bg-sidebar: #2b0909;
+            --bg-chat: #140303;
+            --bg-msg-out: #991b1b;
+            --bg-msg-in: #3f0e0e;
+            --bg-input: #5c1414;
+            --text-primary: #fecaca;
+            --text-secondary: #f87171;
+            --accent: #ef4444;
+            --border: #7f1d1d;
+            --wallpaper: opacity(0.15) hue-rotate(340deg);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+        }
+
+        .bg-app-header { background-color: var(--bg-header); }
+        .bg-app-sidebar { background-color: var(--bg-sidebar); }
+        .bg-app-chat { background-color: var(--bg-chat); }
+        .bg-msg-out { background-color: var(--bg-msg-out); }
+        .bg-msg-in { background-color: var(--bg-msg-in); }
+        .bg-app-input { background-color: var(--bg-input); }
+        .border-app { border-color: var(--border); }
+        .text-app-muted { color: var(--text-secondary); }
+        .text-accent { color: var(--accent); }
+
+        /* WhatsApp Doodle Background Pattern */
+        .chat-wallpaper {
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h40v40H40V0zM0 40h40v40H0V40z'/%3E%3C/g%3E%3C/svg%3E");
+            filter: var(--wallpaper);
+        }
+
+        /* Message tail styles */
+        .msg-tail-out::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -8px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid var(--bg-msg-out);
+            border-right: 8px solid transparent;
+        }
+
+        .msg-tail-in::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -8px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid var(--bg-msg-in);
+            border-left: 8px solid transparent;
+        }
+
+        /* Pulse animation for voice typing */
+        @keyframes pulse-red {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        }
+        .mic-recording {
+            animation: pulse-red 1.5s infinite;
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+
+        /* Custom scrollbars */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+    </style>
+</head>
+<body class="h-full w-full overflow-hidden flex flex-col justify-center items-center select-none">
+
+    <!-- LOGIN SCREEN MODAL -->
+    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="w-full max-w-md rounded-2xl p-6 shadow-2xl border border-app bg-app-sidebar flex flex-col gap-5">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-emerald-600/20 flex items-center justify-center text-emerald-400 text-3xl shadow-lg border border-emerald-500/30">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <h1 class="text-2xl font-bold tracking-tight">WhatsApp Game Hub</h1>
+                <p class="text-xs text-app-muted mt-1">Real-Time Spy vs Hunter vs Hiders Game Chat</p>
+            </div>
+
+            <!-- Role Quick Autofill Section -->
+            <div class="space-y-2">
+                <label class="text-xs font-semibold uppercase tracking-wider text-app-muted flex items-center justify-between">
+                    <span>Quick Autofill Select:</span>
+                    <span class="text-[10px] text-emerald-400 font-normal"><i class="fa-solid fa-bolt mr-1"></i>Tap to autofill</span>
+                </label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="autofillRole('hunter', '11')" class="p-2.5 rounded-xl border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-medium text-left transition flex items-center gap-2">
+                        <span class="text-base">??</span>
+                        <div>
+                            <div class="font-bold">Hunter</div>
+                            <div class="text-[10px] opacity-75">Pass: 11</div>
+                        </div>
+                    </button>
+
+                    <button onclick="autofillRole('spy', '22')" class="p-2.5 rounded-xl border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 text-xs font-medium text-left transition flex items-center gap-2">
+                        <span class="text-base">???</span>
+                        <div>
+                            <div class="font-bold">Spy</div>
+                            <div class="text-[10px] opacity-75">Pass: 22</div>
+                        </div>
+                    </button>
+
+                    <button onclick="autofillRole('hider1', '33')" class="p-2.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 text-xs font-medium text-left transition flex items-center gap-2">
+                        <span class="text-base">??</span>
+                        <div>
+                            <div class="font-bold">Hider 1</div>
+                            <div class="text-[10px] opacity-75">Pass: 33</div>
+                        </div>
+                    </button>
+
+                    <button onclick="autofillRole('hider2', '44')" class="p-2.5 rounded-xl border border-orange-500/30 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 text-xs font-medium text-left transition flex items-center gap-2">
+                        <span class="text-base">??</span>
+                        <div>
+                            <div class="font-bold">Hider 2</div>
+                            <div class="text-[10px] opacity-75">Pass: 44</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium mb-1.5 text-app-muted">Select Your Role</label>
+                    <select id="roleSelect" class="w-full p-3 rounded-xl bg-app-input border border-app text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option value="" disabled selected>-- Choose Role --</option>
+                        <option value="hunter">?? Hunter (Password: 11)</option>
+                        <option value="spy">??? Spy (Password: 22)</option>
+                        <option value="hider1">?? Hider 1 (Password: 33)</option>
+                        <option value="hider2">?? Hider 2 (Password: 44)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium mb-1.5 text-app-muted">Enter Password</label>
+                    <input type="password" id="passwordInput" placeholder="Password (e.g. 11, 22, 33, 44)" class="w-full p-3 rounded-xl bg-app-input border border-app text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <div id="loginError" class="hidden text-xs text-red-400 bg-red-500/10 p-2.5 rounded-lg border border-red-500/20 text-center font-medium"></div>
+
+                <button type="submit" class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] text-white font-semibold rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> Join Game Hub
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="mainApp" class="hidden w-full h-full max-w-7xl mx-auto flex flex-col md:p-3">
+        <div class="w-full h-full md:rounded-2xl border border-app bg-app-sidebar flex overflow-hidden shadow-2xl relative">
+
+            <!-- SIDEBAR CHAT LIST (Desktop & Mobile) -->
+            <div id="sidebarPanel" class="w-full md:w-80 lg:w-96 flex-shrink-0 flex flex-col border-r border-app bg-app-sidebar z-10 transition-all duration-300">
+                <!-- Sidebar Header -->
+                <div class="p-3.5 bg-app-header border-b border-app flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div id="userAvatar" class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-lg shadow">
+                            ?
+                        </div>
+                        <div>
+                            <h2 id="userDisplayName" class="font-bold text-sm leading-tight">Player</h2>
+                            <span id="userBadge" class="inline-block text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider text-white mt-0.5 bg-emerald-600">
+                                Role
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Header Icons -->
+                    <div class="flex items-center gap-2">
+                        <!-- Theme Toggle Button -->
+                        <button onclick="openThemeModal()" title="Switch Theme" class="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center text-app-muted transition">
+                            <i class="fa-solid fa-palette text-lg"></i>
+                        </button>
+                        <!-- Sound Toggle -->
+                        <button id="soundBtn" onclick="toggleSound()" title="Toggle Notification Audio" class="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center text-app-muted transition">
+                            <i class="fa-solid fa-volume-high text-lg"></i>
+                        </button>
+                        <!-- Logout / Switch Role -->
+                        <button onclick="logout()" title="Logout / Switch Role" class="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center text-red-400 transition">
+                            <i class="fa-solid fa-arrow-right-from-bracket text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Network Realtime Sync Status Banner -->
+                <div id="syncStatusBanner" class="px-3 py-1.5 bg-emerald-500/10 border-b border-emerald-500/20 flex items-center justify-between text-[11px] text-emerald-400">
+                    <span class="flex items-center gap-1.5 font-medium">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        Live Cross-Phone Realtime Sync Active
+                    </span>
+                    <i class="fa-solid fa-cloud-check"></i>
+                </div>
+
+                <!-- Search Input -->
+                <div class="p-2 border-b border-app bg-app-sidebar">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-app-muted"></i>
+                        <input type="text" id="searchInput" oninput="filterChats()" placeholder="Search channels or messages..." class="w-full pl-8 pr-3 py-1.5 rounded-lg bg-app-input border border-app text-xs focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Channels / Chat Panels List -->
+                <div class="flex-1 overflow-y-auto divide-y divide-app/50" id="channelList">
+                    <!-- Dynamic Channels Inserted Here -->
+                </div>
+            </div>
+
+            <!-- ACTIVE CHAT PANEL -->
+            <div id="chatPanel" class="hidden md:flex flex-1 flex-col h-full bg-app-chat relative">
+                <!-- Wallpaper overlay -->
+                <div class="absolute inset-0 chat-wallpaper pointer-events-none"></div>
+
+                <!-- Chat Header -->
+                <div class="p-3 bg-app-header border-b border-app flex items-center justify-between z-10 shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <!-- Mobile Back Button -->
+                        <button onclick="showSidebarMobile()" class="md:hidden w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-app-muted">
+                            <i class="fa-solid fa-arrow-left text-base"></i>
+                        </button>
+
+                        <div id="activeChatAvatar" class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white text-lg font-bold shadow">
+                            ??
+                        </div>
+
+                        <div>
+                            <h3 id="activeChatTitle" class="font-bold text-sm leading-tight">Main Group Chat</h3>
+                            <p id="activeChatSubtitle" class="text-[11px] text-app-muted flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                Live Channel - All Players
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Header Actions -->
+                    <div class="flex items-center gap-2">
+                        <button onclick="clearCurrentChat()" title="Clear Chat Display" class="p-2 rounded-lg hover:bg-white/10 text-xs text-app-muted transition flex items-center gap-1">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span class="hidden sm:inline">Clear</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages Feed Container -->
+                <div id="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-3 z-10">
+                    <!-- Messages rendered dynamically -->
+                </div>
+
+                <!-- Message Input Bar -->
+                <div class="p-3 bg-app-header border-t border-app z-10 flex items-center gap-2">
+                    <!-- Speech to Text Voice Button -->
+                    <button id="micBtn" onclick="toggleVoiceInput()" title="Voice Speech-to-Text Typing" class="w-10 h-10 rounded-full bg-app-input border border-app hover:bg-white/10 flex items-center justify-center text-app-muted transition flex-shrink-0">
+                        <i class="fa-solid fa-microphone text-base"></i>
+                    </button>
+
+                    <!-- Text Input -->
+                    <div class="flex-1 relative">
+                        <input type="text" id="messageInput" onkeydown="handleKeyPress(event)" placeholder="Type a message..." class="w-full py-2.5 px-4 rounded-full bg-app-input border border-app text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                    </div>
+
+                    <!-- Send Button -->
+                    <button onclick="sendMessage()" title="Send Message" class="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white flex items-center justify-center transition shadow-md flex-shrink-0">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THEME SELECTOR MODAL -->
+    <div id="themeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+        <div class="w-full max-w-lg rounded-2xl p-5 border border-app bg-app-sidebar shadow-2xl flex flex-col gap-4">
+            <div class="flex items-center justify-between border-b border-app pb-3">
+                <h3 class="font-bold text-base flex items-center gap-2">
+                    <i class="fa-solid fa-palette text-emerald-400"></i> Select WhatsApp Theme (10 Styles)
+                </h3>
+                <button onclick="closeThemeModal()" class="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-app-muted">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-2 gap-2.5 max-h-[60vh] overflow-y-auto pr-1" id="themeGrid">
+                <!-- Theme options generated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FIREBASE & MAIN GAME CONTROLLER SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Game Configuration & Roles
+        const ROLES_DATA = {
+            hunter: { name: 'Hunter', pass: '11', badge: '?? Hunter', color: '#ef4444', class: 'bg-red-500' },
+            spy: { name: 'Spy', pass: '22', badge: '??? Spy', color: '#a855f7', class: 'bg-purple-500' },
+            hider1: { name: 'Hider 1', pass: '33', badge: '?? Hider 1', color: '#06b6d4', class: 'bg-cyan-500' },
+            hider2: { name: 'Hider 2', pass: '44', badge: '?? Hider 2', color: '#f97316', class: 'bg-orange-500' }
+        };
+
+        const CHANNELS = [
+            { id: 'main', name: 'Main Group Chat', desc: 'All 4 Players Shared Panel', icon: '??', color: '#00a884' },
+            { id: 'hunter', name: 'Hunter Channel', desc: 'Hunter Exclusive Channel', icon: '??', color: '#ef4444' },
+            { id: 'spy', name: 'Spy Channel', desc: 'Spy Exclusive Channel', icon: '???', color: '#a855f7' },
+            { id: 'hider1', name: 'Hider 1 Channel', desc: 'Hider 1 Dedicated Panel', icon: '??', color: '#06b6d4' },
+            { id: 'hider2', name: 'Hider 2 Channel', desc: 'Hider 2 Dedicated Panel', icon: '??', color: '#f97316' }
+        ];
+
+        const THEMES = [
+            { id: 'whatsapp-dark', name: 'WhatsApp Dark', color: '#005c4b' },
+            { id: 'whatsapp-light', name: 'WhatsApp Light', color: '#075e54' },
+            { id: 'matrix', name: 'Matrix Green', color: '#00ff66' },
+            { id: 'cyberpunk', name: 'Neon Cyberpunk', color: '#7b2cbf' },
+            { id: 'sunset-rose', name: 'Sunset Rose', color: '#9d174d' },
+            { id: 'ocean-blue', name: 'Deep Ocean Blue', color: '#1e40af' },
+            { id: 'oled-black', name: 'Midnight OLED', color: '#27272a' },
+            { id: 'emerald-forest', name: 'Emerald Forest', color: '#047857' },
+            { id: 'gold-obsidian', name: 'Gold & Obsidian', color: '#854d0e' },
+            { id: 'crimson-rogue', name: 'Crimson Rogue', color: '#991b1b' }
+        ];
+
+        // State variables
+        let currentUser = null;
+        let currentChannel = 'main';
+        let allMessages = [];
+        let soundEnabled = true;
+        let isRecordingVoice = false;
+        let speechRecognitionObj = null;
+        let deviceId = localStorage.getItem('whatsapp_spy_device_id') || ('device_' + Math.random().toString(36).substr(2, 9));
+        localStorage.setItem('whatsapp_spy_device_id', deviceId);
+
+        // Firebase Initialization
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'whatsapp-spy-game-hub';
+        let firebaseConfig = null;
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            try { firebaseConfig = JSON.parse(__firebase_config); } catch(e) {}
+        }
+        if (!firebaseConfig) {
+            firebaseConfig = {
+                apiKey: "AIzaSyDemoKeyForWhatsAppGameHub123456",
+                authDomain: "whatsapp-game-hub.firebaseapp.com",
+                projectId: "whatsapp-game-hub",
+                storageBucket: "whatsapp-game-hub.appspot.com",
+                messagingSenderId: "1234567890",
+                appId: "1:1234567890:web:abcdef123456"
+            };
+        }
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let firestoreConnected = false;
+
+        // Web Audio Synthesizer for notifications
+        function playSoundEffect(type) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                if (ctx.state === 'suspended') ctx.resume();
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'send') {
+                    // Short soft pop
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.08);
+                } else if (type === 'receive') {
+                    // Dual WhatsApp tone chime
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.08); // A5
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                }
+            } catch (e) {
+                console.log('Audio playback prevented or unsupported');
+            }
+        }
+
+        // Autofill Role Helper
+        window.autofillRole = function(roleKey, pass) {
+            document.getElementById('roleSelect').value = roleKey;
+            document.getElementById('passwordInput').value = pass;
+            document.getElementById('loginError').classList.add('hidden');
+        };
+
+        // Handle Login Submission
+        window.handleLogin = function(e) {
+            e.preventDefault();
+            const roleKey = document.getElementById('roleSelect').value;
+            const pass = document.getElementById('passwordInput').value.trim();
+            const errDiv = document.getElementById('loginError');
+
+            if (!roleKey) {
+                errDiv.textContent = 'Please select a role first!';
+                errDiv.classList.remove('hidden');
+                return;
+            }
+
+            const targetRole = ROLES_DATA[roleKey];
+            if (pass !== targetRole.pass) {
+                errDiv.textContent = `Incorrect password for ${targetRole.name}! (Password is ${targetRole.pass})`;
+                errDiv.classList.remove('hidden');
+                return;
+            }
+
+            // Save user state
+            currentUser = {
+                role: roleKey,
+                name: targetRole.name,
+                badge: targetRole.badge,
+                color: targetRole.color,
+                badgeClass: targetRole.class
+            };
+            localStorage.setItem('whatsapp_spy_logged_user', JSON.stringify(currentUser));
+
+            initLoggedInUser();
+        };
+
+        // Initialize user after login
+        function initLoggedInUser() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+
+            // Render Header profile
+            document.getElementById('userDisplayName').textContent = currentUser.name;
+            document.getElementById('userAvatar').textContent = currentUser.name.charAt(0);
+            document.getElementById('userAvatar').style.backgroundColor = currentUser.color;
+            const badgeEl = document.getElementById('userBadge');
+            badgeEl.textContent = currentUser.badge;
+            badgeEl.style.backgroundColor = currentUser.color;
+
+            renderChannelsList();
+            setActiveChannel('main');
+
+            // Connect Firebase Realtime listener
+            setupFirebaseSync();
+        }
+
+        // Logout / Switch Role
+        window.logout = function() {
+            localStorage.removeItem('whatsapp_spy_logged_user');
+            currentUser = null;
+            document.getElementById('mainApp').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('passwordInput').value = '';
+        };
+
+        // Setup Firebase Firestore Sync
+        async function setupFirebaseSync() {
+            try {
+                // Perform auth before queries according to Rule 3
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // Path Rule 1: /artifacts/{appId}/public/data/messages
+                const messagesCol = collection(db, 'artifacts', appId, 'public', 'data', 'messages');
+
+                // Firestore Listener without complex queries (Rule 2)
+                onSnapshot(messagesCol, (snapshot) => {
+                    firestoreConnected = true;
+                    document.getElementById('syncStatusBanner').classList.remove('hidden');
+
+                    const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    
+                    // Sort in memory by createdAt
+                    docs.sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
+
+                    // Check for new incoming messages from other devices
+                    if (docs.length > allMessages.length && allMessages.length > 0) {
+                        const latest = docs[docs.length - 1];
+                        if (latest.deviceId !== deviceId) {
+                            playSoundEffect('receive');
+                        }
+                    }
+
+                    allMessages = docs;
+                    renderMessages();
+                    renderChannelsList();
+                }, (error) => {
+                    console.warn("Firestore error fallback:", error);
+                    setupLocalBroadcastSync();
+                });
+            } catch (err) {
+                console.warn("Firebase Auth / Connection error fallback:", err);
+                setupLocalBroadcastSync();
+            }
+        }
+
+        // Local Fallback Broadcast Channel (if network or firebase blocked)
+        function setupLocalBroadcastSync() {
+            document.getElementById('syncStatusBanner').innerHTML = `
+                <span class="flex items-center gap-1.5 font-medium text-amber-400">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    Local Multi-Tab Sync Active
+                </span>
+                <i class="fa-solid fa-wifi-slash"></i>
+            `;
+
+            const bc = new BroadcastChannel('whatsapp_spy_channel');
+            bc.onmessage = (event) => {
+                if (event.data && event.data.type === 'NEW_MSG') {
+                    allMessages.push(event.data.msg);
+                    playSoundEffect('receive');
+                    renderMessages();
+                    renderChannelsList();
+                }
+            };
+            window.localBroadcastChannel = bc;
+        }
+
+        // Render Channels in Sidebar
+        function renderChannelsList(filterQuery = '') {
+            const container = document.getElementById('channelList');
+            container.innerHTML = '';
+
+            CHANNELS.forEach(ch => {
+                if (filterQuery && !ch.name.toLowerCase().includes(filterQuery.toLowerCase())) return;
+
+                // Find last message for channel
+                const channelMsgs = allMessages.filter(m => m.channel === ch.id);
+                const lastMsg = channelMsgs[channelMsgs.length - 1];
+                const isActive = ch.id === currentChannel;
+
+                const item = document.createElement('div');
+                item.className = `p-3.5 flex items-center justify-between cursor-pointer hover:bg-white/5 transition border-b border-app/40 ${isActive ? 'bg-white/10' : ''}`;
+                item.onclick = () => setActiveChannel(ch.id);
+
+                let timeStr = '';
+                let lastText = ch.desc;
+                if (lastMsg) {
+                    const d = new Date(lastMsg.createdAt);
+                    timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    lastText = `${lastMsg.senderName}: ${lastMsg.text}`;
+                }
+
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 min-w-0 flex-1">
+                        <div class="w-11 h-11 rounded-full flex items-center justify-center text-xl shadow flex-shrink-0" style="background-color: ${ch.color}20; border: 1px solid ${ch.color}40;">
+                            ${ch.icon}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-semibold text-sm truncate">${ch.name}</h4>
+                                <span class="text-[10px] text-app-muted flex-shrink-0 ml-1">${timeStr}</span>
+                            </div>
+                            <p class="text-xs text-app-muted truncate mt-0.5">${escapeHTML(lastText)}</p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Switch Active Chat Channel
+        window.setActiveChannel = function(channelId) {
+            currentChannel = channelId;
+            const ch = CHANNELS.find(c => c.id === channelId);
+
+            document.getElementById('activeChatTitle').textContent = ch.name;
+            document.getElementById('activeChatSubtitle').textContent = ch.desc;
+            document.getElementById('activeChatAvatar').textContent = ch.icon;
+            document.getElementById('activeChatAvatar').style.backgroundColor = ch.color;
+
+            // On Mobile: hide sidebar, show chat panel
+            document.getElementById('sidebarPanel').classList.add('hidden', 'md:flex');
+            document.getElementById('chatPanel').classList.remove('hidden');
+            document.getElementById('chatPanel').classList.add('flex');
+
+            renderChannelsList();
+            renderMessages();
+        };
+
+        window.showSidebarMobile = function() {
+            document.getElementById('sidebarPanel').classList.remove('hidden');
+            document.getElementById('chatPanel').classList.add('hidden');
+            document.getElementById('chatPanel').classList.remove('flex');
+        };
+
+        // Render Chat Messages
+        function renderMessages() {
+            const container = document.getElementById('messagesContainer');
+            container.innerHTML = '';
+
+            const currentMsgs = allMessages.filter(m => m.channel === currentChannel);
+
+            if (currentMsgs.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center p-6 text-app-muted opacity-80">
+                        <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-3xl mb-3">
+                            ??
+                        </div>
+                        <p class="text-sm font-semibold">End-to-End Game Encryption</p>
+                        <p class="text-xs max-w-xs mt-1">Messages sent here are visible in real-time to all connected devices on this channel.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let lastDate = '';
+
+            currentMsgs.forEach((msg) => {
+                const msgDate = new Date(msg.createdAt).toLocaleDateString();
+                if (msgDate !== lastDate) {
+                    lastDate = msgDate;
+                    const dateDivider = document.createElement('div');
+                    dateDivider.className = 'text-center my-3';
+                    dateDivider.innerHTML = `
+                        <span class="text-[10px] uppercase font-semibold px-3 py-1 rounded-full bg-app-header text-app-muted border border-app shadow-sm">
+                            ${msgDate === new Date().toLocaleDateString() ? 'Today' : msgDate}
+                        </span>
+                    `;
+                    container.appendChild(dateDivider);
+                }
+
+                const isMe = msg.senderRole === currentUser.role || msg.deviceId === deviceId;
+                const msgTime = new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `flex ${isMe ? 'justify-end' : 'justify-start'} mb-2.5`;
+
+                const roleColor = ROLES_DATA[msg.senderRole]?.color || '#00a884';
+
+                msgDiv.innerHTML = `
+                    <div class="relative max-w-[82%] sm:max-w-[70%] px-3.5 py-2 rounded-2xl text-xs shadow-md ${isMe ? 'bg-msg-out rounded-tr-none msg-tail-out' : 'bg-msg-in rounded-tl-none msg-tail-in'}">
+                        ${!isMe ? `
+                            <div class="font-bold text-[11px] mb-1 flex items-center gap-1.5" style="color: ${roleColor};">
+                                <span>${escapeHTML(msg.senderName)}</span>
+                                <span class="text-[9px] px-1.5 py-0.2 rounded-full text-white font-semibold" style="background-color: ${roleColor};">
+                                    ${msg.senderRole.toUpperCase()}
+                                </span>
+                            </div>
+                        ` : ''}
+                        <div class="text-sm break-words leading-relaxed">${escapeHTML(msg.text)}</div>
+                        <div class="text-[9px] text-app-muted text-right mt-1 flex items-center justify-end gap-1 opacity-80">
+                            <span>${msgTime}</span>
+                            ${isMe ? '<i class="fa-solid fa-check-double text-emerald-400"></i>' : ''}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(msgDiv);
+            });
+
+            // Auto scroll to bottom
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Send Message Handler
+        window.sendMessage = async function() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            if (!text || !currentUser) return;
+
+            const newMsg = {
+                text: text,
+                channel: currentChannel,
+                senderRole: currentUser.role,
+                senderName: currentUser.name,
+                senderColor: currentUser.color,
+                deviceId: deviceId,
+                createdAt: new Date().toISOString()
+            };
+
+            input.value = '';
+            playSoundEffect('send');
+
+            if (firestoreConnected) {
+                try {
+                    const messagesCol = collection(db, 'artifacts', appId, 'public', 'data', 'messages');
+                    await addDoc(messagesCol, newMsg);
+                } catch (e) {
+                    console.error("Error adding message:", e);
+                    allMessages.push(newMsg);
+                    renderMessages();
+                }
+            } else {
+                allMessages.push(newMsg);
+                renderMessages();
+                if (window.localBroadcastChannel) {
+                    window.localBroadcastChannel.postMessage({ type: 'NEW_MSG', msg: newMsg });
+                }
+            }
+        };
+
+        window.handleKeyPress = function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        };
+
+        // Speech-to-Text Voice Recording
+        window.toggleVoiceInput = function() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const micBtn = document.getElementById('micBtn');
+
+            if (!SpeechRecognition) {
+                alert('Speech Recognition is not supported on your mobile browser. Please type manually.');
+                return;
+            }
+
+            if (isRecordingVoice) {
+                if (speechRecognitionObj) speechRecognitionObj.stop();
+                isRecordingVoice = false;
+                micBtn.classList.remove('mic-recording');
+                return;
+            }
+
+            try {
+                speechRecognitionObj = new SpeechRecognition();
+                speechRecognitionObj.continuous = false;
+                speechRecognitionObj.interimResults = true;
+                speechRecognitionObj.lang = 'en-US';
+
+                speechRecognitionObj.onstart = function() {
+                    isRecordingVoice = true;
+                    micBtn.classList.add('mic-recording');
+                };
+
+                speechRecognitionObj.onresult = function(event) {
+                    let transcript = '';
+                    for (let i = event.resultIndex; i < event.results.length; ++i) {
+                        transcript += event.results[i][0].transcript;
+                    }
+                    document.getElementById('messageInput').value = transcript;
+                };
+
+                speechRecognitionObj.onerror = function() {
+                    isRecordingVoice = false;
+                    micBtn.classList.remove('mic-recording');
+                };
+
+                speechRecognitionObj.onend = function() {
+                    isRecordingVoice = false;
+                    micBtn.classList.remove('mic-recording');
+                };
+
+                speechRecognitionObj.start();
+            } catch (err) {
+                console.error("Speech recognition error:", err);
+                isRecordingVoice = false;
+                micBtn.classList.remove('mic-recording');
+            }
+        };
+
+        // Audio & Theme Modal Helpers
+        window.toggleSound = function() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('soundBtn');
+            btn.innerHTML = soundEnabled ? '<i class="fa-solid fa-volume-high text-lg"></i>' : '<i class="fa-solid fa-volume-xmark text-lg text-red-400"></i>';
+        };
+
+        window.openThemeModal = function() {
+            document.getElementById('themeModal').classList.remove('hidden');
+        };
+
+        window.closeThemeModal = function() {
+            document.getElementById('themeModal').classList.add('hidden');
+        };
+
+        window.applyTheme = function(themeId) {
+            document.documentElement.setAttribute('data-theme', themeId);
+            localStorage.setItem('whatsapp_spy_theme', themeId);
+            renderThemeGrid();
+            closeThemeModal();
+        };
+
+        function renderThemeGrid() {
+            const currentTheme = localStorage.getItem('whatsapp_spy_theme') || 'whatsapp-dark';
+            const grid = document.getElementById('themeGrid');
+            grid.innerHTML = '';
+
+            THEMES.forEach(t => {
+                const active = t.id === currentTheme;
+                const card = document.createElement('div');
+                card.className = `p-3 rounded-xl border cursor-pointer transition flex items-center justify-between ${active ? 'border-emerald-500 bg-emerald-500/10' : 'border-app hover:bg-white/5'}`;
+                card.onclick = () => applyTheme(t.id);
+                card.innerHTML = `
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-4 h-4 rounded-full border border-white/20" style="background-color: ${t.color}"></span>
+                        <span class="text-xs font-semibold">${t.name}</span>
+                    </div>
+                    ${active ? '<i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>' : ''}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        window.clearCurrentChat = function() {
+            allMessages = allMessages.filter(m => m.channel !== currentChannel);
+            renderMessages();
+            renderChannelsList();
+        };
+
+        window.filterChats = function() {
+            const q = document.getElementById('searchInput').value;
+            renderChannelsList(q);
+        };
+
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>"']/g, function(m) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+            });
+        }
+
+        // Initialize Theme & User Auto-login on load
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('whatsapp_spy_theme') || 'whatsapp-dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            renderThemeGrid();
+
+            const savedUser = localStorage.getItem('whatsapp_spy_logged_user');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    initLoggedInUser();
+                } catch(e) {
+                    localStorage.removeItem('whatsapp_spy_logged_user');
+                }
+            }
+        };
+    </script>
+</body>
+</html>
